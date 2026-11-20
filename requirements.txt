@@ -1,0 +1,15 @@
+torch>=2.2
+transformers>=4.45
+safetensors
+numpy
+pillow
+fastapi
+uvicorn
+python-multipart
+faster-whisper        # speech-to-text
+rapidocr              # on-screen / image OCR
+onnxruntime
+opencv-python-headless
+imageio-ffmpeg        # bundled ffmpeg binary (no system install needed)
+pymupdf               # PDF text
+python-docx           # DOCX text

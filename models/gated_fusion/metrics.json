@@ -1,0 +1,86 @@
+{
+  "evaluated_on": "test",
+  "decision_threshold": 0.5,
+  "best_seed": 3,
+  "val_macro_f1": 0.8556,
+  "test": {
+    "gated_fusion": {
+      "n": 180,
+      "accuracy": 0.8333,
+      "macro_f1": 0.8333,
+      "f1_sarcastic": 0.8333,
+      "auc": 0.8793
+    },
+    "heuristic_fusion": {
+      "n": 180,
+      "accuracy": 0.8,
+      "macro_f1": 0.7991,
+      "f1_sarcastic": 0.8125,
+      "auc": 0.8975
+    },
+    "text_only_model": {
+      "n": 180,
+      "accuracy": 0.7278,
+      "macro_f1": 0.7277,
+      "f1_sarcastic": 0.7232,
+      "auc": 0.8035
+    },
+    "audio_only_model": {
+      "n": 179,
+      "accuracy": 0.7151,
+      "macro_f1": 0.7122,
+      "f1_sarcastic": 0.7411,
+      "auc": 0.8236
+    },
+    "video_only_model": {
+      "n": 179,
+      "accuracy": 0.676,
+      "macro_f1": 0.6759,
+      "f1_sarcastic": 0.6813,
+      "auc": 0.7408
+    }
+  },
+  "robustness_missing_modalities": {
+    "gated_with_text_only": {
+      "n": 180,
+      "accuracy": 0.7167,
+      "macro_f1": 0.7162,
+      "f1_sarcastic": 0.7273,
+      "auc": 0.7921
+    },
+    "gated_with_audio_only": {
+      "n": 179,
+      "accuracy": 0.7598,
+      "macro_f1": 0.7593,
+      "f1_sarcastic": 0.7701,
+      "auc": 0.8162
+    },
+    "gated_with_video_only": {
+      "n": 179,
+      "accuracy": 0.6704,
+      "macro_f1": 0.6702,
+      "f1_sarcastic": 0.6776,
+      "auc": 0.7444
+    }
+  },
+  "mean_gate_weights_test": {
+    "text": 0.5211,
+    "audio": 0.357,
+    "video": 0.1246
+  },
+  "hparams": {
+    "manifest": "data\\mustardpp\\manifest.jsonl",
+    "out": "C:\\Users\\vidus\\Downloads\\Module3 Joint Distributions\\multimodal_sarcasm_system\\models\\gated_fusion",
+    "hidden": 128,
+    "dropout": 0.3,
+    "lr": 0.001,
+    "weight_decay": 0.01,
+    "batch_size": 32,
+    "epochs": 200,
+    "patience": 25,
+    "modality_dropout": 0.3,
+    "gate_entropy": 0.01,
+    "seeds": 5,
+    "transcribe_missing_text": false
+  }
+}

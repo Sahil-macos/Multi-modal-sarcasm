@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Environment and editor files
+.env
+.env.*
+.DS_Store
+.vscode/
+.idea/
+
+# Local data and generated artifacts
+data/
+cache/
+features/
+*.log
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Large/derived model assets
+*.safetensors
+*.ckpt

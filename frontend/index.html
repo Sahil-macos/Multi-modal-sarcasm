@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Multimodal Sarcasm Detector</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">◐</span>
+      <div>
+        <h1>Multimodal Sarcasm Detector</h1>
+        <p class="sub">RoBERTa · HuBERT · VideoMAE, fused into one decision</p>
+      </div>
+    </div>
+    <div id="health" class="health" aria-live="polite">
+      <span class="pill" data-k="text">Text</span>
+      <span class="pill" data-k="audio">Audio</span>
+      <span class="pill" data-k="video">Video</span>
+      <span class="pill" data-k="gated_fusion">Gate</span>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="card input-card" aria-labelledby="in-h">
+      <h2 id="in-h">Input</h2>
+      <label for="text" class="lbl">Text</label>
+      <textarea id="text" rows="5" placeholder="Type or paste something… e.g. “Oh great, another Monday. I just love waking up at 5am.”"></textarea>
+
+      <div class="lbl">File <span class="muted">(optional: document, audio or video)</span></div>
+      <label id="drop" class="drop" tabindex="0">
+        <input id="file" type="file" hidden
+          accept=".pdf,.docx,.txt,.md,.csv,.json,.html,.htm,.png,.jpg,.jpeg,.webp,.bmp,.tif,.tiff,.wav,.mp3,.m4a,.flac,.ogg,.aac,.opus,.wma,.mp4,.mov,.avi,.mkv,.webm,.m4v,.mpeg,.mpg,.wmv">
+        <span id="drop-msg"><strong>Drop a file</strong> or click to browse<br>
+          <span class="muted small">PDF, DOCX, TXT, images · WAV, MP3, M4A · MP4, MOV, MKV, WEBM</span></span>
+      </label>
+      <div id="file-chip" class="file-chip" hidden>
+        <span id="file-kind" class="kind"></span><span id="file-name"></span>
+        <button id="file-clear" class="link" type="button" aria-label="Remove file">✕</button>
+      </div>
+      <div id="preview" class="preview"></div>
+
+      <div class="opts">
+        <label><input id="opt-stt" type="checkbox" checked> Speech-to-text</label>
+        <label><input id="opt-ocr" type="checkbox" checked> On-screen OCR (video)</label>
+      </div>
+      <div class="actions">
+        <button id="go" class="primary" type="button">Analyze</button>
+        <button id="reset" class="ghost" type="button">Clear</button>
+      </div>
+      <div class="examples">
+        <span class="muted small">Try:</span>
+        <button class="chip" data-ex="Wow, you're a genius, you only broke the build three times today.">sarcastic</button>
+        <button class="chip" data-ex="The meeting is at 3pm in room 204.">literal</button>
+      </div>
+      <p id="err" class="err" role="alert" hidden></p>
+    </section>
+
+    <section id="out" class="results" aria-live="polite">
+      <div class="card empty" id="empty">
+        <p>Results appear here: the fused decision, each model's prediction, extracted transcripts and on-screen text.</p>
+      </div>
+
+      <div id="loading" class="card loading" hidden>
+        <div class="spinner" aria-hidden="true"></div>
+        <div>
+          <strong id="stage">Uploading…</strong>
+          <p class="muted small">Audio and video take longer: speech-to-text, OCR and three models run on CPU.</p>
+        </div>
+      </div>
+
+      <div id="res" hidden>
+        <div class="card verdict" id="verdict">
+          <div class="gauge" id="gauge" role="img" aria-label="Sarcasm score">
+            <svg viewBox="0 0 120 70"><path class="g-bg" d="M10 62 A50 50 0 0 1 110 62"/><path id="g-fg" class="g-fg" d="M10 62 A50 50 0 0 1 110 62"/></svg>
+            <div class="g-num"><span id="score">–</span><small>/100</small></div>
+          </div>
+          <div class="v-body">
+            <div class="v-label" id="decision">–</div>
+            <div class="v-meta">
+              <span>Confidence <b id="conf">–</b></span>
+              <span>Level <b id="level">–</b></span>
+              <span>Modalities agree <b id="agree">–</b></span>
+            </div>
+            <ul id="expl" class="expl"></ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Model predictions</h3>
+          <div id="models" class="models"></div>
+        </div>
+
+        <div class="grid2">
+          <div class="card">
+            <h3>Fusion</h3>
+            <p class="muted small" id="fmethod"></p>
+            <div id="contrib"></div>
+          </div>
+          <div class="card">
+            <h3>Flags &amp; analysis</h3>
+            <ul id="flags" class="flags"></ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Extracted content</h3>
+          <div class="tabs" role="tablist" id="tabs"></div>
+          <div id="tabpanel" class="tabpanel"></div>
+        </div>
+
+        <details class="card raw">
+          <summary>Timings &amp; raw JSON</summary>
+          <div id="timings" class="timings"></div>
+          <pre id="json"></pre>
+        </details>
+      </div>
+    </section>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>
